@@ -1,0 +1,85 @@
+openapi: 3.0.3
+info:
+  title: UrlAPI
+  description: URL shortener REST API
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+components:
+  schemas:
+    Line:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        full_url:
+          type: string
+        short_url:
+          type: string
+tags:
+  - name: Line
+    description: "Operations with lines"
+paths:
+  /linkUrl:
+    post:
+      tags:
+        - Line
+      summary: "Add a new line into database"
+      operationId: Create
+      requestBody:
+        description: "Ner url needs to be added into the database"
+        content:
+          'application/json':
+            schema:
+              $ref: "#/components/schemas/Line"
+        required: true
+      responses:
+        "405":
+          description: "Invalid input"
+    get:
+      tags:
+        - Line
+      summary: Get new short url
+      operationId: Redirect
+      parameters:
+        - name: FullUrl
+          in: path
+          description: Short URL to return
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Line'
+        400:
+          description: Invalid link
+          content:
+            { }
+  /linkUrl/[id]:
+    get:
+      tags:
+        - GetStat
+      summary: Get stat link
+      operationId: GetStat
+      parameters:
+        - name: UrlStat
+          in: path
+          description: stat info
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Line'
+        400:
+          description: Invalid link
+          content: { }
