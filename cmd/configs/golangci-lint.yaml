@@ -26,27 +26,46 @@ skip-files:
 linters:
   disable-all: true
   enable:
-    - gofmt # Gofmt checks whether code was gofmt-ed. By default this tool runs with -s option to check for code simplification
-    - goimports # Goimports does everything that gofmt does. Additionally it checks unused imports
-    - govet # Vet examines Go source code and reports suspicious constructs, such as Printf calls whose arguments do not align with the format string
-    - goconst # Finds repeated strings that could be replaced by a constant
-    - funlen # Tool for detection of long functions
-    - bodyclose # checks whether HTTP response body is closed successfully
-    - errcheck # Errcheck is a program for checking for unchecked errors in go programs. These unchecked errors can be critical bugs in some cases
-    - deadcode # Finds unused code
-    - exportloopref # checks for pointers to enclosing loop variables
-    - gochecknoglobals # Find global variables
-    - nakedret # Finds naked returns in functions greater than a specified function length
-    - gosec # Inspects source code for security problems
-    - staticcheck #Staticcheck is a go vet on steroids, applying a ton of static analysis checks
-
-
+    - bodyclose
+    - deadcode
+    - depguard
+    - dogsled
+    - dupl
+    - errcheck
+    - exportloopref
+    - funlen
+    - gochecknoinits
+    - goconst
+    - gocritic
+    - gocyclo
+    - gofmt
+    - goimports
+    - gomnd
+    - goprintffuncname
+    - gosec
+    - gosimple
+    - govet
+    - ineffassign
+    - lll
+    - misspell
+    - nakedret
+    - noctx
+    - nolintlint
+    - staticcheck
+    - structcheck
+    - stylecheck
+    - typecheck
+    - unconvert
+    - unparam
+    - unused
+    - varcheck
+    - whitespace
 
 # настройки отдельных линтеров
 linters-settings:
   goimports:
     # указываем префикс локальных импортов, они будут группироваться
-    local-prefixes: path/to/module
+    local-prefixes: github.com/e4t4g/URL_shortener_GB-
   govet:
     # проверка на использование переменных «в тени»
     check-shadowing: true

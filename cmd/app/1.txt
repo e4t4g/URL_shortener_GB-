@@ -1,0 +1,10 @@
+curl -X 'POST' http://localhost:8000/linkUrl -H 'accept: */*' -H 'Content-Type: application/json' -d '{"full_url": "https://www.amazon.com/"}'
+
+curl -X 'POST' \
+  'http://localhost:8000/linkUrl' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "full_url": "https://www.amazon.com/"
+}'
+
