@@ -5,36 +5,43 @@ import (
 	"fmt"
 
 	"github.com/e4t4g/URL_shortener_GB-/internal/app/repository"
+
 	"github.com/jmoiron/sqlx"
 	_ "github.com/mxk/go-sqlite/sqlite3"
+	"go.uber.org/zap"
 )
 
 type repoURL struct {
-	db *sqlx.DB
+	db     *sqlx.DB
+	logger *zap.SugaredLogger
 }
 
-func New(db *sqlx.DB) repository.Repository {
+const querySelect = "SELECT * FROM url WHERE "
+
+func New(db *sqlx.DB, logger *zap.SugaredLogger) repository.Repository {
 	return &repoURL{
-		db: db,
+		db:     db,
+		logger: logger,
 	}
 }
 
-func (rdb *repoURL) Create(url *repository.URLData) (*repository.URLData, error) {
+func (rdb *repoURL) Create(ctx context.Context, url *repository.URLData) (*repository.URLData, error) {
 	var URLData repository.URLData
-	ctx := context.Background()
+
 	query := "INSERT INTO url (full_url, short_url, counter) VALUES (?, ?, ?)"
 	statement, err := rdb.db.Prepare(query)
 	if err != nil {
-		panic(err)
+		rdb.logger.Error(err)
+		return nil, fmt.Errorf("failed to create: %w", err)
 	}
 	statement.QueryRow(url.FullURL, url.ShortURL, 0)
 
-	query = "SELECT * FROM url WHERE short_url = ?"
+	query = querySelect + "short_url = ?"
 
 	err = rdb.db.GetContext(ctx, &URLData, query, url.ShortURL)
 	if err != nil {
-		fmt.Println(err)
-		return nil, err
+		rdb.logger.Error(err)
+		return nil, fmt.Errorf("failed to create: %w", err)
 	}
 
 	return &URLData, nil
@@ -43,33 +50,38 @@ func (rdb *repoURL) Create(url *repository.URLData) (*repository.URLData, error)
 func (rdb *repoURL) FindByToken(ctx context.Context, token string) (*repository.URLData, error) {
 	var URLData repository.URLData
 
-	statQuery := "SELECT * FROM url WHERE short_url = ?"
+	statQuery := querySelect + "short_url = ?"
 
 	err := rdb.db.GetContext(ctx, &URLData, statQuery, token)
 	if err != nil {
-		return nil, err
+		rdb.logger.Error(err)
+		return nil, fmt.Errorf("failed to find by token: %w", err)
 	}
 
 	return &URLData, nil
 }
 
-func (rdb *repoURL) FindByID(id int) (*repository.URLData, error) {
+func (rdb *repoURL) FindByID(ctx context.Context, id int) (*repository.URLData, error) {
 	var URLData repository.URLData
 
-	ctx := context.Background()
-
-	statQuery := "SELECT * FROM url WHERE id = ?"
+	statQuery := querySelect + "id = ?"
 
 	err := rdb.db.GetContext(ctx, &URLData, statQuery, id)
 	if err != nil {
-		return nil, err
+		rdb.logger.Error(err)
+		return nil, fmt.Errorf("failed to find by id: %w", err)
 	}
 
-	return &URLData, err
+	return &URLData, nil
 }
 
-func (rdb *repoURL) UpdateCounter(counter int64, shortURL string) {
+func (rdb *repoURL) UpdateCounter(ctx context.Context, counter int64, shortURL string) error {
 	query := "UPDATE url SET counter = ? WHERE short_url = ? "
-	statement, _ := rdb.db.Prepare(query)
+	statement, err := rdb.db.Prepare(query)
+	if err != nil {
+		rdb.logger.Error(err)
+		return fmt.Errorf("failed to update counter: %w", err)
+	}
 	statement.QueryRow(counter, shortURL)
+	return nil
 }

@@ -5,6 +5,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"github.com/thinkerou/favicon"
 	"net/http"
 	"os/signal"
 	"syscall"
@@ -15,7 +16,6 @@ import (
 	"github.com/e4t4g/URL_shortener_GB-/internal/app/delivery/ginrouter"
 	"github.com/e4t4g/URL_shortener_GB-/internal/app/repository/sqlite"
 	"github.com/e4t4g/URL_shortener_GB-/internal/app/usecase"
-
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/mxk/go-sqlite/sqlite3"
@@ -80,7 +80,8 @@ func App() {
 		)
 	}))
 
-	router.StaticFile("/favicon.ico", "./favicon.ico")
+	router.Use(favicon.New("./favicon.ico"))
+	//router.StaticFile("/favicon.ico", "./favicon.ico")
 
 	router.POST("/linkUrl", deliveryLayer.Create())
 	router.GET("/stat/:id", deliveryLayer.GetStat())

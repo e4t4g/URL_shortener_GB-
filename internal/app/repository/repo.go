@@ -1,8 +1,17 @@
 package repository
 
-import "github.com/e4t4g/URL_shortener_GB-/internal/pkg/repository/models"
+import "context"
+
+type URLData struct {
+	ID       int    `db:"id"`
+	FullURL  string `db:"full_url"`
+	ShortURL string `db:"short_url"`
+	Counter  int64  `db:"counter"`
+}
 
 type Repository interface {
-	Create(url *models.UrlData) (*models.UrlData, error)
-	GetStat(id int) *models.UrlData
+	Create(ctx context.Context, url *URLData) (*URLData, error)
+	FindByToken(ctx context.Context, token string) (*URLData, error)
+	UpdateCounter(ctx context.Context, counter int64, shortURL string) error
+	FindByID(ctx context.Context, id int) (*URLData, error)
 }

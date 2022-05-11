@@ -27,42 +27,11 @@ import java.io.IOException;
 /**
  * Line
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-05T20:35:51.721008+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-05-01T16:37:32.842520+03:00[Europe/Moscow]")
 public class Line {
-  public static final String SERIALIZED_NAME_ID = "id";
-  @SerializedName(SERIALIZED_NAME_ID)
-  private Long id;
-
   public static final String SERIALIZED_NAME_FULL_URL = "full_url";
   @SerializedName(SERIALIZED_NAME_FULL_URL)
   private String fullUrl;
-
-  public static final String SERIALIZED_NAME_SHORT_URL = "short_url";
-  @SerializedName(SERIALIZED_NAME_SHORT_URL)
-  private String shortUrl;
-
-
-  public Line id(Long id) {
-    
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public Long getId() {
-    return id;
-  }
-
-
-  public void setId(Long id) {
-    this.id = id;
-  }
 
 
   public Line fullUrl(String fullUrl) {
@@ -88,29 +57,6 @@ public class Line {
   }
 
 
-  public Line shortUrl(String shortUrl) {
-    
-    this.shortUrl = shortUrl;
-    return this;
-  }
-
-   /**
-   * Get shortUrl
-   * @return shortUrl
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public String getShortUrl() {
-    return shortUrl;
-  }
-
-
-  public void setShortUrl(String shortUrl) {
-    this.shortUrl = shortUrl;
-  }
-
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -120,14 +66,12 @@ public class Line {
       return false;
     }
     Line line = (Line) o;
-    return Objects.equals(this.id, line.id) &&
-        Objects.equals(this.fullUrl, line.fullUrl) &&
-        Objects.equals(this.shortUrl, line.shortUrl);
+    return Objects.equals(this.fullUrl, line.fullUrl);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, fullUrl, shortUrl);
+    return Objects.hash(fullUrl);
   }
 
 
@@ -135,9 +79,7 @@ public class Line {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Line {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    fullUrl: ").append(toIndentedString(fullUrl)).append("\n");
-    sb.append("    shortUrl: ").append(toIndentedString(shortUrl)).append("\n");
     sb.append("}");
     return sb.toString();
   }

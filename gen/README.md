@@ -2,7 +2,7 @@
 
 UrlAPI
 - API version: 1.0.0
-  - Build date: 2022-02-05T20:35:51.721008+03:00[Europe/Moscow]
+  - Build date: 2022-05-01T16:37:32.842520+03:00[Europe/Moscow]
 
 URL shortener REST API
 
@@ -77,20 +77,20 @@ import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
 import org.openapitools.client.models.*;
-import org.openapitools.client.api.LineApi;
+import org.openapitools.client.api.GetStatApi;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8080");
+    defaultClient.setBasePath("http://localhost:8006");
 
-    LineApi apiInstance = new LineApi(defaultClient);
-    String fullUrl = "fullUrl_example"; // String | Short URL to return
+    GetStatApi apiInstance = new GetStatApi(defaultClient);
+    String urlStat = "urlStat_example"; // String | stat info
     try {
-      Line result = apiInstance.getURL(fullUrl);
+      Line result = apiInstance.getStat(urlStat);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling LineApi#getURL");
+      System.err.println("Exception when calling GetStatApi#getStat");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -103,17 +103,18 @@ public class Example {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *http://localhost:8006*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*LineApi* | [**getURL**](docs/LineApi.md#getURL) | **GET** /getUrl/ | Get new short url
-*LineApi* | [**postNewURL**](docs/LineApi.md#postNewURL) | **POST** /getUrl/ | Add a new line into database
-*ShortUrlApi* | [**getStat**](docs/ShortUrlApi.md#getStat) | **GET** /getUrl/stat | Get stat link
+*GetStatApi* | [**getStat**](docs/GetStatApi.md#getStat) | **GET** /linkUrl/[id] | Get stat link
+*LineApi* | [**create**](docs/LineApi.md#create) | **POST** /linkUrl/ | Add a new line into database
+*LineApi* | [**redirect**](docs/LineApi.md#redirect) | **GET** /linkUrl/ | Get new short url
 
 
 ## Documentation for Models
 
+ - [InlineResponse200](docs/InlineResponse200.md)
  - [Line](docs/Line.md)
 
 

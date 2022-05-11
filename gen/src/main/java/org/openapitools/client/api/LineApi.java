@@ -27,7 +27,9 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
+import org.openapitools.client.model.InlineResponse200;
 import org.openapitools.client.model.Line;
+import org.openapitools.client.model.UNKNOWN_BASE_TYPE;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -55,7 +57,122 @@ public class LineApi {
     }
 
     /**
-     * Build call for getURL
+     * Build call for create
+     * @param UNKNOWN_BASE_TYPE New url needs to be added into the database (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 405 </td><td> Invalid input </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Created </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call createCall(UNKNOWN_BASE_TYPE UNKNOWN_BASE_TYPE, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = UNKNOWN_BASE_TYPE;
+
+        // create path and map variables
+        String localVarPath = "/linkUrl/";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] {  };
+        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call createValidateBeforeCall(UNKNOWN_BASE_TYPE UNKNOWN_BASE_TYPE, final ApiCallback _callback) throws ApiException {
+        
+        // verify the required parameter 'UNKNOWN_BASE_TYPE' is set
+        if (UNKNOWN_BASE_TYPE == null) {
+            throw new ApiException("Missing the required parameter 'UNKNOWN_BASE_TYPE' when calling create(Async)");
+        }
+        
+
+        okhttp3.Call localVarCall = createCall(UNKNOWN_BASE_TYPE, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * Add a new line into database
+     * 
+     * @param UNKNOWN_BASE_TYPE New url needs to be added into the database (required)
+     * @return InlineResponse200
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 405 </td><td> Invalid input </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Created </td><td>  -  </td></tr>
+     </table>
+     */
+    public InlineResponse200 create(UNKNOWN_BASE_TYPE UNKNOWN_BASE_TYPE) throws ApiException {
+        ApiResponse<InlineResponse200> localVarResp = createWithHttpInfo(UNKNOWN_BASE_TYPE);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Add a new line into database
+     * 
+     * @param UNKNOWN_BASE_TYPE New url needs to be added into the database (required)
+     * @return ApiResponse&lt;InlineResponse200&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 405 </td><td> Invalid input </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Created </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<InlineResponse200> createWithHttpInfo(UNKNOWN_BASE_TYPE UNKNOWN_BASE_TYPE) throws ApiException {
+        okhttp3.Call localVarCall = createValidateBeforeCall(UNKNOWN_BASE_TYPE, null);
+        Type localVarReturnType = new TypeToken<InlineResponse200>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Add a new line into database (asynchronously)
+     * 
+     * @param UNKNOWN_BASE_TYPE New url needs to be added into the database (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 405 </td><td> Invalid input </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Created </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call createAsync(UNKNOWN_BASE_TYPE UNKNOWN_BASE_TYPE, final ApiCallback<InlineResponse200> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = createValidateBeforeCall(UNKNOWN_BASE_TYPE, _callback);
+        Type localVarReturnType = new TypeToken<InlineResponse200>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for redirect
      * @param fullUrl Short URL to return (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -67,11 +184,11 @@ public class LineApi {
         <tr><td> 400 </td><td> Invalid link </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getURLCall(String fullUrl, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call redirectCall(String fullUrl, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/getUrl/"
+        String localVarPath = "/linkUrl/"
             .replaceAll("\\{" + "FullUrl" + "\\}", localVarApiClient.escapeString(fullUrl.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -99,15 +216,15 @@ public class LineApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getURLValidateBeforeCall(String fullUrl, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call redirectValidateBeforeCall(String fullUrl, final ApiCallback _callback) throws ApiException {
         
         // verify the required parameter 'fullUrl' is set
         if (fullUrl == null) {
-            throw new ApiException("Missing the required parameter 'fullUrl' when calling getURL(Async)");
+            throw new ApiException("Missing the required parameter 'fullUrl' when calling redirect(Async)");
         }
         
 
-        okhttp3.Call localVarCall = getURLCall(fullUrl, _callback);
+        okhttp3.Call localVarCall = redirectCall(fullUrl, _callback);
         return localVarCall;
 
     }
@@ -125,8 +242,8 @@ public class LineApi {
         <tr><td> 400 </td><td> Invalid link </td><td>  -  </td></tr>
      </table>
      */
-    public Line getURL(String fullUrl) throws ApiException {
-        ApiResponse<Line> localVarResp = getURLWithHttpInfo(fullUrl);
+    public Line redirect(String fullUrl) throws ApiException {
+        ApiResponse<Line> localVarResp = redirectWithHttpInfo(fullUrl);
         return localVarResp.getData();
     }
 
@@ -143,8 +260,8 @@ public class LineApi {
         <tr><td> 400 </td><td> Invalid link </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Line> getURLWithHttpInfo(String fullUrl) throws ApiException {
-        okhttp3.Call localVarCall = getURLValidateBeforeCall(fullUrl, null);
+    public ApiResponse<Line> redirectWithHttpInfo(String fullUrl) throws ApiException {
+        okhttp3.Call localVarCall = redirectValidateBeforeCall(fullUrl, null);
         Type localVarReturnType = new TypeToken<Line>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -163,118 +280,11 @@ public class LineApi {
         <tr><td> 400 </td><td> Invalid link </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getURLAsync(String fullUrl, final ApiCallback<Line> _callback) throws ApiException {
+    public okhttp3.Call redirectAsync(String fullUrl, final ApiCallback<Line> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getURLValidateBeforeCall(fullUrl, _callback);
+        okhttp3.Call localVarCall = redirectValidateBeforeCall(fullUrl, _callback);
         Type localVarReturnType = new TypeToken<Line>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for postNewURL
-     * @param line Ner url needs to be added into the database (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 405 </td><td> Invalid input </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call postNewURLCall(Line line, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = line;
-
-        // create path and map variables
-        String localVarPath = "/getUrl/";
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] {  };
-        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call postNewURLValidateBeforeCall(Line line, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'line' is set
-        if (line == null) {
-            throw new ApiException("Missing the required parameter 'line' when calling postNewURL(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = postNewURLCall(line, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Add a new line into database
-     * 
-     * @param line Ner url needs to be added into the database (required)
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 405 </td><td> Invalid input </td><td>  -  </td></tr>
-     </table>
-     */
-    public void postNewURL(Line line) throws ApiException {
-        postNewURLWithHttpInfo(line);
-    }
-
-    /**
-     * Add a new line into database
-     * 
-     * @param line Ner url needs to be added into the database (required)
-     * @return ApiResponse&lt;Void&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 405 </td><td> Invalid input </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Void> postNewURLWithHttpInfo(Line line) throws ApiException {
-        okhttp3.Call localVarCall = postNewURLValidateBeforeCall(line, null);
-        return localVarApiClient.execute(localVarCall);
-    }
-
-    /**
-     * Add a new line into database (asynchronously)
-     * 
-     * @param line Ner url needs to be added into the database (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 405 </td><td> Invalid input </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call postNewURLAsync(Line line, final ApiCallback<Void> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = postNewURLValidateBeforeCall(line, _callback);
-        localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
 }
