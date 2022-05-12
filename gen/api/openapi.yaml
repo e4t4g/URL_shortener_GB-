@@ -1,0 +1,97 @@
+openapi: 3.0.3
+info:
+  description: URL shortener REST API
+  title: UrlAPI
+  version: 1.0.0
+servers:
+- url: http://localhost:8080
+tags:
+- description: Operations with lines
+  name: Line
+paths:
+  /getUrl/:
+    get:
+      operationId: GetURL
+      parameters:
+      - description: Short URL to return
+        explode: false
+        in: path
+        name: FullUrl
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Line'
+          description: successful operation
+        "400":
+          content: {}
+          description: Invalid link
+      summary: Get new short url
+      tags:
+      - Line
+      x-accepts: application/json
+    post:
+      operationId: PostNewURL
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Line'
+        description: Ner url needs to be added into the database
+        required: true
+      responses:
+        "405":
+          description: Invalid input
+      summary: Add a new line into database
+      tags:
+      - Line
+      x-contentType: application/json
+      x-accepts: application/json
+  /getUrl/stat:
+    get:
+      operationId: GetStat
+      parameters:
+      - description: stat info
+        explode: false
+        in: path
+        name: UrlStat
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Line'
+          description: successful operation
+        "400":
+          content: {}
+          description: Invalid link
+      summary: Get stat link
+      tags:
+      - ShortUrl
+      x-accepts: application/json
+components:
+  schemas:
+    Line:
+      example:
+        full_url: full_url
+        id: 0
+        short_url: short_url
+      properties:
+        id:
+          format: int64
+          type: integer
+        full_url:
+          type: string
+        short_url:
+          type: string
+      type: object
+

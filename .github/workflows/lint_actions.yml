@@ -18,6 +18,7 @@ jobs:
         with:
           # Required: the version of golangci-lint is required and must be specified without patch version: we always use the latest patch version.
           version: v1.29
+          args: -c ../../configs/golangci-lint.yaml
 
           # Optional: working directory, useful for monorepos
           # working-directory: somedir
@@ -31,8 +32,8 @@ jobs:
           # Optional: if set to true then the action will use pre-installed Go.
           # skip-go-installation: true
 
-          # Optional: if set to true then the action don't cache or restore ~/go/pkg.
-          # skip-pkg-cache: true
+          # Optional: if set to true then the action don't cache or restore ~/go/app.
+          # skip-app-cache: true
 
           # Optional: if set to true then the action don't cache or restore ~/.cache/go-build.
           # skip-build-cache: true
