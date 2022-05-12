@@ -4,6 +4,7 @@ import (
 	"go.uber.org/zap"
 	"os"
 
+	"github.com/kelseyhightower/envconfig"
 	"gopkg.in/yaml.v2"
 )
 
@@ -28,5 +29,15 @@ func (c *Config) ReadFromFile(logger *zap.SugaredLogger) error {
 	if err = yaml.Unmarshal(data, c); err != nil {
 		logger.Errorf("unnable to unmarshal file: %s", err)
 	}
+	return nil
+}
+
+func (c *Config) REadFromEnv(logger *zap.SugaredLogger) error {
+	err := envconfig.Process("", c)
+	if err != nil {
+		logger.Fatalf("failed to read config from env: %v", err)
+		return err
+	}
+
 	return nil
 }

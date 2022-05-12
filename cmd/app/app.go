@@ -51,10 +51,19 @@ func App() {
 
 	flag.Parse()
 
+	//cfg := config.Config{}
+	//err = cfg.ReadFromFile(sugar)
+	//if err != nil {
+	//	sugar.Fatalf("can not read config file %s", err)
+	//}
+
 	cfg := config.Config{}
-	err = cfg.ReadFromFile(sugar)
-	if err != nil {
-		sugar.Fatalf("can not read config file %s", err)
+	if err = cfg.REadFromEnv(sugar); err != nil {
+		err = cfg.ReadFromFile(sugar)
+		if err != nil {
+			panic(err)
+		}
+
 	}
 
 	db, err := sqlx.Open("sqlite3", cfg.DBconfig.DBurl)
