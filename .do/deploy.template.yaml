@@ -1,5 +1,5 @@
 spec:
-  name: sample-golang
+  name: url-shortener-gb
   services:
     - name: web
       git:
