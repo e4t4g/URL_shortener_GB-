@@ -5,3 +5,4 @@ spec:
       git:
         branch: main
         repo_clone_url: https://github.com/e4t4g/URL_shortener_GB-.git
+      build_command: "go build ./cmd/"
