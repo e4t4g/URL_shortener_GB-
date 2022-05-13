@@ -1,6 +1,0 @@
-name: url_shortener_gb
-services:
-  -name: web
-  github:
-      repo: e4t4g/URL_shortener_GB-
-      branch: main

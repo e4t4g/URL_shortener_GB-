@@ -6,3 +6,13 @@ spec:
         branch: main
         repo_clone_url: https://github.com/e4t4g/URL_shortener_GB-.git
       build_command: "go build ./cmd/"
+      envs:
+        - key: PORT
+          scope: PORT
+          value: 8080
+        - key: DB_URL
+          scope: DB_CONFIG
+          value: ./URL.db
+        -key: HOST
+         scope: HOST
+         value: http://0.0.0.0
