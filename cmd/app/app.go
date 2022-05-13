@@ -58,12 +58,8 @@ func App() {
 	//}
 
 	cfg := config.Config{}
-	if err = cfg.REadFromEnv(sugar); err != nil {
-		err = cfg.ReadFromFile(sugar)
-		if err != nil {
-			panic(err)
-		}
-
+	if err = cfg.ReadFromFile(sugar); err != nil {
+		cfg.REadFromEnv(sugar)
 	}
 
 	db, err := sqlx.Open("sqlite3", cfg.DBconfig.DBurl)
@@ -117,4 +113,3 @@ func App() {
 
 	sugar.Info("Server exiting")
 }
-
