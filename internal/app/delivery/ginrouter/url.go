@@ -64,7 +64,7 @@ func (d delivery) Create() gin.HandlerFunc {
 		statURL := fmt.Sprintf("%s:%d/stat/%d", host, port, result.ID)
 
 		p := URLData{FullURL: statURL, ShortURL: shortURL}
-		templatePath := os.DirFS("../web/result/")
+		templatePath := os.DirFS("./web/result/") // ../web/result/
 		t := template.Must(template.ParseFS(templatePath, "*.html")) // , "*/*.html"
 		err = t.Execute(c.Writer, p)
 		if err != nil {
@@ -102,7 +102,7 @@ func (d delivery) GetStat() gin.HandlerFunc {
 		}
 
 		p := URLData{Counter: redirectStruct.Counter}
-		templatePath := os.DirFS("../web/stat/")
+		templatePath := os.DirFS("./web/stat/") //"../web/stat/"
 		t := template.Must(template.ParseFS(templatePath, "*.html"))
 		err = t.Execute(c.Writer, p)
 		if err != nil {
@@ -115,7 +115,7 @@ func (d delivery) WebGenerate() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		p := URLData{FullURL: "FullUrl", ShortURL: "ShortUrl"}
 		fmt.Println(p)
-		templatePath := os.DirFS("../web/create/")
+		templatePath := os.DirFS("./web/create/") //../web/create/
 		t := template.Must(template.ParseFS(templatePath, "*.html"))
 		err := t.Execute(c.Writer, p)
 		if err != nil {

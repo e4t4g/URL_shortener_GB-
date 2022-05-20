@@ -18,7 +18,7 @@ type DBconfig struct {
 }
 
 func (c *Config) ReadFromFile(logger *zap.SugaredLogger) error {
-	//configPath := "/home/e4t4g/Desktop/URLshortener/URL_shortener_GB-/url_shortener_gb/configs/app.yaml"
+	//configPath := "/home/e4t4g/Desktop/URL_shortener_GB-/cmd/configs/app.yaml"
 	configPath := "./configs/app.yaml"
 
 	data, err := os.ReadFile(configPath)
@@ -33,7 +33,7 @@ func (c *Config) ReadFromFile(logger *zap.SugaredLogger) error {
 }
 
 func (c *Config) REadFromEnv(logger *zap.SugaredLogger) {
-	err := envconfig.Process("", c)
+	err := envconfig.Process("", &c)
 	if err != nil {
 		logger.Fatalf("failed to read config from env: %v", err)
 

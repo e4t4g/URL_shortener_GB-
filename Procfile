@@ -1,1 +1,1 @@
-web: bin/url_shortener_gb
+web: bin/URL_shortener_GB-

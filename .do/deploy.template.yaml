@@ -1,11 +1,11 @@
 spec:
-  name: url-shortener-gb
+  name: URL_shortener_GB-
   services:
     - name: web
       git:
         branch: main
         repo_clone_url: https://github.com/e4t4g/URL_shortener_GB-.git
-      build_command: "go build ./url_shortener_gb/"
+      build_command: "go build -o ./bin/url_shortener_gb ./cmd/"
       envs:
         - key: PORT
           scope: PORT
