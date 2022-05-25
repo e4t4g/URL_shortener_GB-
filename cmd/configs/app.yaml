@@ -1,4 +1,4 @@
-host: http://172.17.0.2
-port: 8000
+host: http://164.90.193.194
+port: 8080
 db_config:
   db_url: cmd/URL.db
