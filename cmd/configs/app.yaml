@@ -1,4 +1,4 @@
-host: http://164.90.193.194
-port: 8080
+host: http://e4t4g.xyz
+port: 80
 db_config:
   db_url: cmd/URL.db

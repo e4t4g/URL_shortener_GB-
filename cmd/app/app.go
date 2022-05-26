@@ -62,6 +62,7 @@ func App() {
 		cfg.REadFromEnv(sugar)
 	}
 
+
 	db, err := sqlx.Open("sqlite3", cfg.DBconfig.DBurl)
 	if err != nil {
 		sugar.Fatalf("can not connect to DB: %s", err)
