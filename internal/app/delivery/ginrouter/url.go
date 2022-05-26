@@ -60,8 +60,8 @@ func (d delivery) Create() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{"status": "unable to create"})
 		}
 
-		shortURL := fmt.Sprintf("%s:%d/%s", host, port, result.ShortURL)
-		statURL := fmt.Sprintf("%s:%d/stat/%d", host, port, result.ID)
+		shortURL := fmt.Sprintf("%s/%s", host, result.ShortURL) // "%s:%d/%s", host, port, result.ShortURL
+		statURL := fmt.Sprintf("%s/stat/%d", host, result.ID) // "%s:%d/stat/%d", host, port, result.ID
 
 		p := URLData{FullURL: statURL, ShortURL: shortURL}
 		templatePath := os.DirFS("./web/result/") // ../web/result/
