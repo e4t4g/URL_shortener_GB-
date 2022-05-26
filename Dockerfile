@@ -8,6 +8,7 @@ RUN go mod download
 COPY . .
 
 COPY /bin/url_shortener_gb /bin/url_shortener_gb
+COPY cmd/favicon.ico /favicon.ico
 COPY web/create/ /web/create/template.html
 COPY web/result/ /web/result/result.html
 COPY web/stat/ /web/stat/stat.html

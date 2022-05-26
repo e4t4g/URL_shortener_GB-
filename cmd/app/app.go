@@ -91,7 +91,7 @@ func App() {
 	router.POST("/linkUrl", deliveryLayer.Create())
 	router.GET("/stat/:id", deliveryLayer.GetStat())
 	router.GET("/:token", deliveryLayer.Redirect())
-	router.GET("/web", deliveryLayer.WebGenerate())
+	router.GET("/", deliveryLayer.WebGenerate())
 
 	srv := &http.Server{Addr: fmt.Sprintf(":%d", cfg.Port), Handler: router}
 
