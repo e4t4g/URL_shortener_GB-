@@ -14,7 +14,7 @@ tests: false
 
 # Пропускать папки вендора, сторонних зависимостей и т.д.
 #   vendor$, third_party$, testdata$, examples$, Godeps$, builtin$
-skip-dirs-use-default: true
+  skip-dirs-use-default: true
 
 # Пропускать файлы, заканчивающиеся на .bad.go
 skip-files:
@@ -22,9 +22,9 @@ skip-files:
   - ".*\\.bad\\.mock.go$"
 
 # список линтеров
-linters:
-  disable-all: true
-  enable:
+  linters:
+    disable-all: true
+   enable:
     - bodyclose
     - deadcode
     - depguard
