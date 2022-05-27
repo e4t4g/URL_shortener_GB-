@@ -78,6 +78,6 @@ linters-settings:
     statements: 50
   nakedret:
     max-func-lines: 5
-on:
-jobs:
+
+
 
