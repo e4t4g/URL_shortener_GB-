@@ -16,6 +16,12 @@ COPY cmd/configs/app.yaml configs/app.yaml
 
 RUN go build -o /bin/url_shortener_gb ./cmd/
 
+FROM alpine:3.13.5
+
+WORKDIR /root/
+
+
+
 EXPOSE 8080
 
 CMD ["/bin/url_shortener_gb"]
