@@ -20,9 +20,3 @@ COPY web/stat/ /web/stat/stat.html
 #      - name: delete image
 #        run: doctl compute image delete $IMAGE_NAME --force
 
-docker run -e http://164.90.193.194:80/ -d \
---restart always \
---publish 80:80 \
---name url_sh 
-
-
