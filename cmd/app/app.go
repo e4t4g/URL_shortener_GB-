@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"os/signal"
 	"syscall"
-	"text/template"
 	"time"
 
 	"github.com/e4t4g/URL_shortener_GB-/cmd/app/config"
@@ -29,9 +28,9 @@ type URLData struct {
 	Counter  int64  `json:"counter" yaml:"counter"`
 }
 
-type Template struct {
-	templates *template.Template
-}
+// type Template struct {
+// 	templates *template.Template
+// }
 
 func App() {
 	gin.SetMode(gin.ReleaseMode)
@@ -40,7 +39,12 @@ func App() {
 	if err != nil {
 		panic(err)
 	}
-	defer logger.Sync()
+	defer func(logger *zap.Logger) {
+		err = logger.Sync()
+		if err != nil {
+			panic(err)
+		}
+	}(logger)
 
 	sugar := logger.Sugar()
 
