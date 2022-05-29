@@ -20,7 +20,7 @@ COPY web/stat/ /web/stat/stat.html
 #      - name: delete image
 #        run: doctl compute image delete $IMAGE_NAME --force
 
-
+2
 
 1
 
