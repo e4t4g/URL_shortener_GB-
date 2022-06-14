@@ -2,12 +2,13 @@ package ginrouter
 
 import (
 	"fmt"
-	"github.com/e4t4g/URL_shortener_GB-/cmd/app/config"
+
 	"net/http"
 	"os"
 	"strconv"
 	"text/template"
 
+	"github.com/e4t4g/URL_shortener_GB-/cmd/app/config"
 	"github.com/e4t4g/URL_shortener_GB-/internal/app/usecase"
 
 	"github.com/gin-gonic/gin"
@@ -48,7 +49,6 @@ func (d delivery) Create() gin.HandlerFunc {
 		}
 
 		host := cfg.Host
-		//port := cfg.Port
 
 		var newURL *URLData
 		if err = c.ShouldBind(&newURL); err != nil {
@@ -60,17 +60,16 @@ func (d delivery) Create() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{"status": "unable to create"})
 		}
 
-		shortURL := fmt.Sprintf("%s/%s", host, result.ShortURL) // "%s:%d/%s", host, port, result.ShortURL
-		statURL := fmt.Sprintf("%s/stat/%d", host, result.ID) // "%s:%d/stat/%d", host, port, result.ID
+		shortURL := fmt.Sprintf("%s/%s", host, result.ShortURL)
+		statURL := fmt.Sprintf("%s/stat/%d", host, result.ID)
 
 		p := URLData{FullURL: statURL, ShortURL: shortURL}
-		templatePath := os.DirFS("./web/result/") // ../web/result/
-		t := template.Must(template.ParseFS(templatePath, "*.html")) // , "*/*.html"
+		templatePath := os.DirFS("./web/result/")
+		t := template.Must(template.ParseFS(templatePath, "*.html"))
 		err = t.Execute(c.Writer, p)
 		if err != nil {
 			panic(err)
 		}
-
 	}
 }
 
@@ -102,7 +101,7 @@ func (d delivery) GetStat() gin.HandlerFunc {
 		}
 
 		p := URLData{Counter: redirectStruct.Counter}
-		templatePath := os.DirFS("./web/stat/") //"../web/stat/"
+		templatePath := os.DirFS("./web/stat/")
 		t := template.Must(template.ParseFS(templatePath, "*.html"))
 		err = t.Execute(c.Writer, p)
 		if err != nil {
@@ -115,7 +114,7 @@ func (d delivery) WebGenerate() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		p := URLData{FullURL: "FullUrl", ShortURL: "ShortUrl"}
 		fmt.Println(p)
-		templatePath := os.DirFS("./web/create/") //../web/create/
+		templatePath := os.DirFS("./web/create/")
 		t := template.Must(template.ParseFS(templatePath, "*.html"))
 		err := t.Execute(c.Writer, p)
 		if err != nil {
@@ -123,5 +122,3 @@ func (d delivery) WebGenerate() gin.HandlerFunc {
 		}
 	}
 }
-
-

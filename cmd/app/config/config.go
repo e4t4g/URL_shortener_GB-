@@ -1,10 +1,11 @@
 package config
 
 import (
+	"os"
+
 	"github.com/kelseyhightower/envconfig"
 	"go.uber.org/zap"
 	"gopkg.in/yaml.v2"
-	"os"
 )
 
 type Config struct {
@@ -18,7 +19,6 @@ type DBconfig struct {
 }
 
 func (c *Config) ReadFromFile(logger *zap.SugaredLogger) error {
-	//configPath := "/home/e4t4g/Desktop/URL_shortener_GB-/cmd/configs/app.yaml"
 	configPath := "./configs/app.yaml"
 
 	data, err := os.ReadFile(configPath)
@@ -36,6 +36,5 @@ func (c *Config) REadFromEnv(logger *zap.SugaredLogger) {
 	err := envconfig.Process("", &c)
 	if err != nil {
 		logger.Fatalf("failed to read config from env: %v", err)
-
 	}
 }

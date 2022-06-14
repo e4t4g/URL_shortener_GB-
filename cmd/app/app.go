@@ -5,20 +5,20 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+
 	"net/http"
 	"os/signal"
 	"syscall"
 	"time"
 
 	"github.com/e4t4g/URL_shortener_GB-/cmd/app/config"
+	"github.com/e4t4g/URL_shortener_GB-/cmd/app/logger"
 	"github.com/e4t4g/URL_shortener_GB-/internal/app/delivery/ginrouter"
 	"github.com/e4t4g/URL_shortener_GB-/internal/app/repository/sqlite"
 	"github.com/e4t4g/URL_shortener_GB-/internal/app/usecase"
-
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/mxk/go-sqlite/sqlite3"
-	"go.uber.org/zap"
 )
 
 type URLData struct {
@@ -28,25 +28,10 @@ type URLData struct {
 	Counter  int64  `json:"counter" yaml:"counter"`
 }
 
-// type Template struct {
-// 	templates *template.Template
-// }
-
 func App() {
 	gin.SetMode(gin.ReleaseMode)
 
-	logger, err := zap.NewProduction()
-	if err != nil {
-		panic(err)
-	}
-	defer func(logger *zap.Logger) {
-		err = logger.Sync()
-		if err != nil {
-			panic(err)
-		}
-	}(logger)
-
-	sugar := logger.Sugar()
+	sugar := logger.NewLogger()
 
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer stop()
@@ -55,17 +40,10 @@ func App() {
 
 	flag.Parse()
 
-	//cfg := config.Config{}
-	//err = cfg.ReadFromFile(sugar)
-	//if err != nil {
-	//	sugar.Fatalf("can not read config file %s", err)
-	//}
-
 	cfg := config.Config{}
-	if err = cfg.ReadFromFile(sugar); err != nil {
+	if err := cfg.ReadFromFile(sugar); err != nil {
 		cfg.REadFromEnv(sugar)
 	}
-
 
 	db, err := sqlx.Open("sqlite3", cfg.DBconfig.DBurl)
 	if err != nil {
@@ -79,18 +57,17 @@ func App() {
 		}
 	}(db)
 
-	repository := sqlite.New(db, sugar)
-	businessLogic := usecase.New(repository, sugar)
-	deliveryLayer := ginrouter.New(businessLogic, sugar)
-
 	router.Use(gin.LoggerWithFormatter(func(params gin.LogFormatterParams) string {
 		return fmt.Sprintf("[%s] %s ",
 			params.TimeStamp.Format(time.RFC3339),
 			params.Request.Proto,
 		)
 	}))
-
 	router.StaticFile("/favicon.ico", "./favicon.ico")
+
+	repository := sqlite.New(db, sugar)
+	businessLogic := usecase.New(repository, sugar)
+	deliveryLayer := ginrouter.New(businessLogic, sugar)
 
 	router.POST("/linkUrl", deliveryLayer.Create())
 	router.GET("/stat/:id", deliveryLayer.GetStat())
@@ -115,6 +92,5 @@ func App() {
 	if err = srv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 		sugar.Fatalf("listen: %s\n", err.Error())
 	}
-
 	sugar.Info("Server exiting")
 }

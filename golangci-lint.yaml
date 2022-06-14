@@ -1,22 +1,30 @@
-run:
 
+# настройки запуска
+run:
+# значение конкурентности устанавливаем по количеству CPU
 concurrency: 4
 
+# анализ не должен превышать
 timeout: 1m
 
+# выводить "exit-code" при наличии хотя бы одного сообщения
 issues-exit-code: 1
 
+# не включать анализ тестов
 tests: false
 
+# Пропускать папки вендора, сторонних зависимостей и т.д.
+#   vendor$, third_party$, testdata$, examples$, Godeps$, builtin$
 skip-dirs-use-default: true
 
+# Пропускать файлы, заканчивающиеся на .bad.go
 skip-files:
   - ".*\\.bad\\.go$"
   - ".*\\.bad\\.mock.go$"
 
-  linters:
-    disable-all: true
-   enable:
+linters:
+  disable-all: true
+  enable:
     - bodyclose
     - deadcode
     - depguard
@@ -53,7 +61,7 @@ skip-files:
     - whitespace
 
 
-linters-settings:
+  linters-settings:
   goimports:
     local-prefixes: github.com/e4t4g/URL_shortener_GB-
   govet:

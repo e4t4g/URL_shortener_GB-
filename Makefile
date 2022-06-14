@@ -1,3 +1,3 @@
-
+.PHONY: lint
 lint:
-	golangci-lint run -c cmd/configs/golangci-lint.yaml
+	golangci-lint run -c ./golangci-lint.yaml
