@@ -87,7 +87,7 @@ func App() {
 		}
 	}(ctx, srv)
 
-	sugar.Infof("[[Listening and serving HTTP on :%d]]", cfg.Port)
+	sugar.Infof("[[Listening and serving HTTP on: %d]]", cfg.Port)
 
 	if err = srv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 		sugar.Fatalf("listen: %s\n", err.Error())
